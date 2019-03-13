@@ -55,6 +55,7 @@ class WeatherFragment : Fragment(), Statable{
         city = arguments?.getString(ARG_NAME)
 
         view.mainViewGroup.section_label.text = city
+
 //        view.mainViewGroup.section_label.setOnClickListener {
 //            state = State.ERROR
 //        }

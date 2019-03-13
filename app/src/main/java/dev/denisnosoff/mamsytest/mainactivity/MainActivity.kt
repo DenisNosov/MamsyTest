@@ -2,40 +2,45 @@ package dev.denisnosoff.mamsytest.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import dev.denisnosoff.mamsytest.R
 import dev.denisnosoff.mamsytest.weatherfragment.WeatherFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_weather.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mSectionsPagerAdapter: SectionsPagerAdapter
+    private var mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+    private lateinit var mViewModel: MainViewModel
 
-    private val citiesList = arrayListOf("Moscow", "Los Angeles", "New-York")
+    private val citiesList = hashSetOf("Moscow", "Los Angeles", "New-York")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
+
         initViewPager()
+        mViewModel.citiesSet.observe(this, Observer {
+            refreshViewPager(it)
+        })
+
+
 
         fab.setOnClickListener {
-            mSectionsPagerAdapter.addItem(WeatherFragment.newInstance("HEEY"))
+            mViewModel.addCity("Hey")
         }
     }
 
-    private fun initViewPager() {
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+    private fun refreshViewPager(cities: Set<String>) {
+        for (city in cities)
+            mSectionsPagerAdapter.addItem(WeatherFragment.newInstance(city))
+    }
 
-        for (city in citiesList) {
-            mSectionsPagerAdapter.addItem(WeatherFragment.newInstance(city.toUpperCase()))
-        }
+    private fun initViewPager() {
 
         tabLayout.setupWithViewPager(container)
         container.adapter = mSectionsPagerAdapter
