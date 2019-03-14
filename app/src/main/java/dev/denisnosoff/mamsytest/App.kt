@@ -4,6 +4,7 @@ import android.app.Application
 import dev.denisnosoff.mamsytest.di.AppComponent
 import dev.denisnosoff.mamsytest.di.DaggerAppComponent
 import dev.denisnosoff.mamsytest.di.modules.CitiesModule
+import dev.denisnosoff.mamsytest.di.modules.ConverterModule
 
 class App : Application() {
 
@@ -12,6 +13,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
+            .converterModule(ConverterModule())
             .citiesModule(CitiesModule())
             .build()
     }

@@ -2,6 +2,8 @@ package dev.denisnosoff.mamsytest.model.cities
 
 import dev.denisnosoff.mamsytest.model.cities.entity.CitiesResult
 import io.reactivex.Observable
+import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
