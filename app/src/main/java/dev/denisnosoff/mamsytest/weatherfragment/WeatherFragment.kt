@@ -56,15 +56,15 @@ class WeatherFragment : Fragment(), Statable{
 
         view.mainViewGroup.section_label.text = city
 
-//        view.mainViewGroup.section_label.setOnClickListener {
-//            state = State.ERROR
-//        }
-//        view.progressBar.setOnClickListener {
-//            state = State.SUCCESSFUL
-//        }
-//        view.errorTextView.setOnClickListener {
-//            state = State.LOADING
-//        }
+        view.mainViewGroup.section_label.setOnClickListener {
+            state = State.ERROR
+        }
+        view.progressBar.setOnClickListener {
+            state = State.SUCCESSFUL
+        }
+        view.errorTextView.setOnClickListener {
+            state = State.LOADING
+        }
 
         return view
     }
