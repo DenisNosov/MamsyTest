@@ -13,12 +13,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG = "MainAcitivity"
+    private val TAG = "MainActivity"
 
     private var mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
     private lateinit var mViewModel: MainViewModel
 
-    private var citiesList: ArrayList<String> = ArrayList<String>()
+    private var citiesList: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             if (!citiesList.contains(city)) {
                 mSectionsPagerAdapter.addItem(WeatherFragment.newInstance(city))
                 citiesList.add(city)
+
             }
     }
 
@@ -52,9 +53,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        super.onPause()
         mViewModel.onPause()
+        super.onPause()
     }
 
-//    fun setTabName(name: String)
+    fun setTabName(name: String, pos: Int) {
+        tabLayout.getTabAt(pos)?.text = name
+    }
 }

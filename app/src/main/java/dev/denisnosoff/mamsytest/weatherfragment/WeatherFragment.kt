@@ -7,15 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.R
+import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
 import dev.denisnosoff.mamsytest.util.hide
 import dev.denisnosoff.mamsytest.util.show
 import dev.denisnosoff.mamsytest.util.state.Statable
 import dev.denisnosoff.mamsytest.util.state.State
 import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlinx.android.synthetic.main.fragment_weather.view.*
+import javax.inject.Inject
 
 class WeatherFragment : Fragment(), Statable{
+
     override var state: State = State.LOADING
         set(_state: State) {
             field = _state
@@ -41,7 +45,6 @@ class WeatherFragment : Fragment(), Statable{
             }
         }
     }
-
 
     private var city : String? = null
 
