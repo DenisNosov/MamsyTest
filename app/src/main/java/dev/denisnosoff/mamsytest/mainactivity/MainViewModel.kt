@@ -30,6 +30,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         citiesListLiveData.value = newList
     }
 
+    fun removeCity(city: CityItem?) {
+        val newList = citiesListLiveData.value
+        newList?.remove(city)
+        citiesListLiveData.value = newList
+    }
+
     fun onPause() {
         cityListSaver.citiesList = citiesListLiveData.value!!
     }

@@ -1,3 +1,21 @@
 
-k
-;app/src/main/java/dev/denisnosoff/mamsytest/MainActivity.kt,4\b\4b75211fa776206bba2fbd21e4c3a788f1c138c4
+y
+Iapp/src/main/java/dev/denisnosoff/mamsytest/mainactivity/MainViewModel.kt,0\d\0d5de52bb53f8754c0dd4963bfb74528d0e1645f
+€
+Papp/src/main/java/dev/denisnosoff/mamsytest/mainactivity/SectionsPagerAdapter.kt,0\0\00cbdba9b38624fb58f888d2def27cbbb4be636f
+‚
+Rapp/src/main/java/dev/denisnosoff/mamsytest/model/sharedpreferences/SharedPrefs.kt,8\f\8fe26112f3536cfb3dd18bb887c4bc1e720c7a98
+~
+Napp/src/main/java/dev/denisnosoff/mamsytest/weatherfragment/WeatherFragment.kt,5\9\59a1a02dd44d2879480bd4a91308e09293201273
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+t
+Dapp/src/main/java/dev/denisnosoff/mamsytest/util/KotlinExtensions.kt,8\b\8b09030c4dad7b10c8fed54072227dd74390fa56
+r
+Bapp/src/main/java/dev/denisnosoff/mamsytest/util/state/Statable.kt,b\6\b6ea5ec6ae8db090802e7ecc92549cb9ae122ae3
+o
+?app/src/main/java/dev/denisnosoff/mamsytest/util/state/State.kt,3\9\393751987ecd6cf09fd0699913e12b7045e78d23
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+x
+Happ/src/main/java/dev/denisnosoff/mamsytest/mainactivity/MainActivity.kt,6\c\6c169409d937e762fc2b07d9bf7f9ca42157bea8

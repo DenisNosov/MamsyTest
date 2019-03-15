@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModel() {
         mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
         mViewModel.citiesListLiveData.observe(this, Observer {
-            refreshViewPager(it)
+            refreshItems(it)
         })
     }
 
@@ -60,15 +60,19 @@ class MainActivity : AppCompatActivity() {
         container.adapter = mSectionsPagerAdapter
     }
 
-    private fun refreshViewPager(cities: List<CityItem>) {
-        Log.d(TAG, "refreshing view pager $cities")
+    private fun refreshItems(cities: List<CityItem>) {
         for (city in cities)
-            if (!citiesList.contains(city)) {
-                mSectionsPagerAdapter.addItem(WeatherFragment.newInstance(city))
-                citiesList.add(city)
-                Log.d(TAG, "${citiesList.indexOf(city)}")
-                setTabName(city.name, citiesList.indexOf(city))
-            }
+            if (!citiesList.contains(city))
+                refreshViewPager(city)
+        for (city in citiesList)
+            if (!cities.contains(city))
+                citiesList = ArrayList(cities)
+        refreshTabs()
+    }
+
+    private fun refreshViewPager(city: CityItem) {
+        mSectionsPagerAdapter.addItem(WeatherFragment.newInstance(city))
+        citiesList.add(city)
     }
 
     override fun onPause() {
@@ -76,7 +80,14 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    fun setTabName(name: String, pos: Int) {
-        tabLayout.getTabAt(pos)?.text = name
+    private fun refreshTabs() {
+        for (city in citiesList)
+            tabLayout.getTabAt(citiesList.indexOf(city))?.text =
+                getString(R.string.city_name_country_string, city.name, city.country)
+    }
+
+    fun deleteFragment(city: CityItem?) {
+        mSectionsPagerAdapter.removeItem(citiesList.indexOf(city))
+        mViewModel.removeCity(city)
     }
 }

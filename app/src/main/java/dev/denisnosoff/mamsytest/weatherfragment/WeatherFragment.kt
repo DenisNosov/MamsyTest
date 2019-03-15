@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.R
+import dev.denisnosoff.mamsytest.mainactivity.MainActivity
 import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
 import dev.denisnosoff.mamsytest.model.cities.CityItem
 import dev.denisnosoff.mamsytest.util.hide
@@ -47,7 +48,7 @@ class WeatherFragment : Fragment(), Statable{
         }
     }
 
-    private var city : String? = null
+    private var city : CityItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,33 +57,37 @@ class WeatherFragment : Fragment(), Statable{
     ): View? {
         val view = inflater.inflate(R.layout.fragment_weather, container, false)
 
-        city = arguments?.getString(ARG_NAME)
+        city = arguments?.getParcelable(ARG_CITY_ITEM)
 
-        view.mainViewGroup.section_label.text = city
-
-        view.mainViewGroup.section_label.setOnClickListener {
-            state = State.ERROR
+        with (view) {
+            mainViewGroup.section_label.text = context.getString(R.string.city_name_country_string, city?.name, city?.country)
+            mainViewGroup.btnDeleteFragment.setOnClickListener { (activity as MainActivity).deleteFragment(city) }
+//            mainViewGroup.section_label.setOnClickListener {
+//                state = State.ERROR
+//            }
+//            progressBar.setOnClickListener {
+//                state = State.SUCCESSFUL
+//            }
+//            errorTextView.setOnClickListener {
+//                state = State.LOADING
+//            }
         }
-        view.progressBar.setOnClickListener {
-            state = State.SUCCESSFUL
-        }
-        view.errorTextView.setOnClickListener {
-            state = State.LOADING
-        }
-
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        state = State.SUCCESSFUL
     }
 
     companion object {
 
-        private const val ARG_NAME = "CITY"
-        private const val ARG_ID = "ID"
+        private const val ARG_CITY_ITEM = "CITY"
 
         fun newInstance(item: CityItem) : Fragment {
             val fragment = WeatherFragment()
             val args = Bundle()
-            args.putString(ARG_NAME, "${item.name}, ${item.country}")
-            args.putString(ARG_ID, "${item.id}")
+            args.putParcelable(ARG_CITY_ITEM, item)
             fragment.arguments = args
             return fragment
         }

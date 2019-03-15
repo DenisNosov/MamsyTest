@@ -9,5 +9,4 @@ import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
 import javax.inject.Inject
 
 class WeatherViewModel(app: Application) : AndroidViewModel(app) {
-
 }
