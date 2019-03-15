@@ -1,11 +1,10 @@
 package dev.denisnosoff.mamsytest.searchactivity
 
-import android.animation.LayoutTransition
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,10 +37,17 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun initRecyclerView() {
         _adapter = RVAdapter(ArrayList()) {
-            Toast.makeText(this, "${it.name}. ${it.id}", Toast.LENGTH_SHORT).show()
+            returnItem(it)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = _adapter
+    }
+
+    private fun returnItem(newItem: CityItem) {
+        val intent = Intent()
+        intent.putExtra(NEW_CITY_ITEM, newItem)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun refreshRecyclerView(list: List<CityItem>?) {
@@ -62,14 +68,23 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        query?.let {
-            Log.d(TAG, "querying city $query")
-            mViewModel.searchCity(query) }
+        query?.let { mViewModel.searchCity(query) }
         return false
     }
 
     override fun onPause() {
         mViewModel.onPause()
         super.onPause()
+    }
+
+    companion object {
+
+        const val SEARCH_ACTIVITY_REQUEST_CODE = 0
+        const val NEW_CITY_ITEM = "NEW_CITY_ITEM"
+
+        fun startForResult(requestCode: Int, activity: Activity) {
+            val intent = Intent(activity, SearchActivity::class.java)
+            activity.startActivityForResult(intent, requestCode)
+        }
     }
 }

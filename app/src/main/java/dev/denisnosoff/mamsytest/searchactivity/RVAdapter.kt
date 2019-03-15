@@ -32,7 +32,7 @@ class RVAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: CityItem, listener: (CityItem) -> Unit) = with(itemView) {
-            tvCityInfo.text = item.name
+            tvCityInfo.text = context.getString(R.string.city_name_country_string, item.name, item.country)
             setOnClickListener { listener(item) }
         }
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.R
 import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
+import dev.denisnosoff.mamsytest.model.cities.CityItem
 import dev.denisnosoff.mamsytest.util.hide
 import dev.denisnosoff.mamsytest.util.show
 import dev.denisnosoff.mamsytest.util.state.Statable
@@ -75,11 +76,13 @@ class WeatherFragment : Fragment(), Statable{
     companion object {
 
         private const val ARG_NAME = "CITY"
+        private const val ARG_ID = "ID"
 
-        fun newInstance(name: String) : Fragment {
+        fun newInstance(item: CityItem) : Fragment {
             val fragment = WeatherFragment()
             val args = Bundle()
-            args.putString(ARG_NAME, name)
+            args.putString(ARG_NAME, "${item.name}, ${item.country}")
+            args.putString(ARG_ID, "${item.id}")
             fragment.arguments = args
             return fragment
         }

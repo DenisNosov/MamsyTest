@@ -5,9 +5,14 @@ import dev.denisnosoff.mamsytest.model.cities.CityItem
 
 class CityToCityItem {
 
-    fun convert(city: String) : CityItem {
+    fun convertStringToItem(city: String) : CityItem {
         val array = TextUtils.split(city, ",‗,")
-        return CityItem(array[0], array[1].toInt())
+        return CityItem(array[0], array[1], array[2].toInt())
+    }
+
+    fun convertItemToString(item: CityItem) : String {
+        val stringArray = arrayListOf(item.name, item.country, item.id.toString())
+        return TextUtils.join(",‗,", stringArray)
     }
 
 }
