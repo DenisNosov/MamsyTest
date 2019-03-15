@@ -17,11 +17,18 @@ class SharedPrefs(context: Context) {
 
     var citiesList: ArrayList<String>?
         get() {
-            val listString = preferences.getString(CITIES_LIST, "Moscow,RU,‗,London,GB,‗,Toronto,CA")
-            return TextUtils.split(listString, ",‗,").toCollection(ArrayList())
+            val listString = preferences.getString(CITIES_LIST,
+                        "Moscow,‗,RU,‗,524901‗‗‗" +
+                        "London,‗,GB,‗,2643743‗‗‗" +
+                        "Toronto,‗,CA,‗,6167865")
+            return TextUtils.split(listString, "‗‗‗").toCollection(ArrayList())
         }
         set(value) {
-            val stringArray = value?.toArray()
-            preferences.edit().putString(CITIES_LIST, TextUtils.join(",‗,", stringArray)).apply()
+            val stringArray = value?.toArray() ?: Array(0) {}
+            preferences.edit().putString(CITIES_LIST, TextUtils.join("‗‗‗", stringArray)).apply()
         }
+
+    fun clear() {
+        preferences.edit().clear().apply()
+    }
 }
