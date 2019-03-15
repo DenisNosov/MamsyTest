@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.R
 import dev.denisnosoff.mamsytest.mainactivity.MainActivity
@@ -50,6 +52,8 @@ class WeatherFragment : Fragment(), Statable{
 
     private var city : CityItem? = null
 
+    private lateinit var mViewModel: WeatherViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,22 +61,25 @@ class WeatherFragment : Fragment(), Statable{
     ): View? {
         val view = inflater.inflate(R.layout.fragment_weather, container, false)
 
+        initViewModel()
+
         city = arguments?.getParcelable(ARG_CITY_ITEM)
 
         with (view) {
             mainViewGroup.section_label.text = context.getString(R.string.city_name_country_string, city?.name, city?.country)
             mainViewGroup.btnDeleteFragment.setOnClickListener { (activity as MainActivity).deleteFragment(city) }
-//            mainViewGroup.section_label.setOnClickListener {
-//                state = State.ERROR
-//            }
-//            progressBar.setOnClickListener {
-//                state = State.SUCCESSFUL
-//            }
-//            errorTextView.setOnClickListener {
-//                state = State.LOADING
-//            }
         }
         return view
+    }
+
+    private fun initViewModel() {
+        mViewModel = ViewModelProviders.of(this)[WeatherViewModel::class.java]
+        mViewModel.state.observe(this, Observer {
+            state = it
+        })
+        city?.let {
+            mViewModel.request(it.id)
+        }
     }
 
     override fun onStart() {

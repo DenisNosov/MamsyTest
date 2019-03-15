@@ -12,8 +12,6 @@ class CityListSaverModule (private val appContext: Application) {
 
     @Singleton
     @Provides
-    fun provideCityListSaver() : CityListSaver {
-        return CityListSaver(appContext)
-    }
+    fun provideCityListSaver() = CityListSaver(appContext)
 
 }

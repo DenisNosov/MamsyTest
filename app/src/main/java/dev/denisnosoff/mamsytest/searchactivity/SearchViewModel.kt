@@ -17,7 +17,6 @@ import javax.inject.Inject
 class SearchViewModel(app: Application) : AndroidViewModel(app) {
 
     private val TAG = "SearchViewModel"
-    private val API_KEY = "6382139bc73c4a4a05d340bc54b53606"
 
     @Inject
     lateinit var citiesApiService: CitiesApiSevice
@@ -33,10 +32,9 @@ class SearchViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun searchCity(cityName: String) {
-        gettingCities = citiesApiService.getCitiesList(cityName, API_KEY)
+        gettingCities = citiesApiService.getCitiesList(cityName, App.API_KEY)
             .flatMap { it.list.toObservable() }
-            .map { "${it.name},‗,${it.sys.country},‗,${it.id}" }
-            .map { converter.convertStringToItem(it) }
+            .map { CityItem(it.name, it.sys.country, it.id) }
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

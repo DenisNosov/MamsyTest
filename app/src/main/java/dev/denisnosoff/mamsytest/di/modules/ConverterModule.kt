@@ -8,8 +8,6 @@ import dev.denisnosoff.mamsytest.util.CityToCityItem
 class ConverterModule {
 
     @Provides
-    fun provideCityToCityItemConverter() : CityToCityItem {
-        return CityToCityItem()
-    }
+    fun provideCityToCityItemConverter() = CityToCityItem()
 
 }

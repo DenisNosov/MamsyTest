@@ -1,6 +1,6 @@
 package dev.denisnosoff.mamsytest.model.weather.entity
 
-data class X(
+data class WeatherSummary(
     val dt: Int,
     val dt_txt: String,
     val main: Main,
