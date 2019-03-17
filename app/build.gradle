@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     androidExtensions {
@@ -46,6 +44,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    //Logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     //RxJava 2 + RxAndroid + RxKotlin
     implementation "io.reactivex.rxjava2:rxjava:2.2.7"

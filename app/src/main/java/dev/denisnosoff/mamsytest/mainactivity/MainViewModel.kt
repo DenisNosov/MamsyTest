@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.model.cities.CityItem
 import dev.denisnosoff.mamsytest.model.sharedpreferences.CityListSaver
+import dev.denisnosoff.mamsytest.model.weather.repository.WeatherRepository
 import javax.inject.Inject
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
@@ -16,11 +17,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     @Inject
     lateinit var cityListSaver: CityListSaver
 
+    @Inject
+    lateinit var repository: WeatherRepository
+
     val citiesListLiveData : MutableLiveData<ArrayList<CityItem>> = MutableLiveData()
 
     init {
         (app as App).appComponent.inject(this)
         citiesListLiveData.value = cityListSaver.citiesList
+        repository.init()
     }
 
     fun addCity(city: CityItem) {
@@ -34,6 +39,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val newList = citiesListLiveData.value
         newList?.remove(city)
         citiesListLiveData.value = newList
+    }
+
+    fun onDestroy() {
+
+        repository.close()
     }
 
     fun onPause() {
