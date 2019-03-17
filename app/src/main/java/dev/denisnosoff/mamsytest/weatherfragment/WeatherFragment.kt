@@ -74,9 +74,8 @@ class WeatherFragment : Fragment(), Statable{
 
     private fun initViewModel() {
         mViewModel = ViewModelProviders.of(this)[WeatherViewModel::class.java]
-        mViewModel.state.observe(this, Observer {
-            state = it
-        })
+        mViewModel.state.observe(this, Observer { state = it })
+        mViewModel.error.observe(this, Observer { errorTextView.text = it })
         city?.let {
             mViewModel.request(it.id)
         }
@@ -85,6 +84,11 @@ class WeatherFragment : Fragment(), Statable{
     override fun onStart() {
         super.onStart()
         state = State.SUCCESSFUL
+    }
+
+    override fun onStop() {
+        mViewModel.onStop()
+        super.onStop()
     }
 
     companion object {
