@@ -2,7 +2,7 @@ package dev.denisnosoff.mamsytest.di.modules
 
 import dagger.Module
 import dagger.Provides
-import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
+import dev.denisnosoff.mamsytest.model.cities.CitiesApiService
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,13 +15,13 @@ class CitiesModule {
 
     @Singleton
     @Provides
-    fun provideCitiesApiService() : CitiesApiSevice {
+    fun provideCitiesApiService() : CitiesApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-        return retrofit.create(CitiesApiSevice::class.java)
+        return retrofit.create(CitiesApiService::class.java)
     }
 }

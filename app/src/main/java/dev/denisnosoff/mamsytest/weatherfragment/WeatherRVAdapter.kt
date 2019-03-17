@@ -11,7 +11,7 @@ import dev.denisnosoff.mamsytest.model.weather.repository.WeatherSummaryRealmObj
 import kotlinx.android.synthetic.main.weather_item.view.*
 import java.util.*
 
-class WeatherRVAdapter(val weatherList: List<WeatherSummaryRealmObject>) : RecyclerView.Adapter<WeatherRVAdapter.WeatherViewHolder>(){
+class WeatherRVAdapter(private val weatherList: List<WeatherSummaryRealmObject>) : RecyclerView.Adapter<WeatherRVAdapter.WeatherViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         WeatherViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_item, parent, false))

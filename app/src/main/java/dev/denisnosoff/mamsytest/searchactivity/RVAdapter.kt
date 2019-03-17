@@ -10,7 +10,7 @@ import dev.denisnosoff.mamsytest.model.cities.CityItem
 import kotlinx.android.synthetic.main.view_item.view.*
 
 class RVAdapter(
-    var stringList: List<CityItem>,
+    private var stringList: List<CityItem>,
     private val listener: (CityItem) -> (Unit)
 ) : RecyclerView.Adapter<RVAdapter.ViewHolder>() {
 

@@ -11,7 +11,6 @@ import dev.denisnosoff.mamsytest.model.weather.repository.WeatherRealmObject
 import dev.denisnosoff.mamsytest.model.weather.repository.WeatherRepository
 import dev.denisnosoff.mamsytest.model.weather.repository.WeatherSummaryRealmObject
 import dev.denisnosoff.mamsytest.util.state.State
-import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +22,6 @@ class WeatherViewModel(app: Application) : AndroidViewModel(app) {
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var city: CityItem
-    private val TAG = "WeatherViewModel"
 
     @Inject
     lateinit var weatherApiService: WeatherApiService
@@ -44,26 +42,20 @@ class WeatherViewModel(app: Application) : AndroidViewModel(app) {
 
     fun request(item: CityItem?) {
         item?.let { this.city = item }
-        Log.d(TAG, "making request")
         val weatherRequestDisposable = weatherApiService.getWeatherById(id = item!!.id.toString(),apiKey =  App.API_KEY)
             .map {
-                Log.d(TAG, it.toString())
-                WeatherRealmObject(it.city.id.toInt(), RealmList(*it.list.map { summary ->
+                WeatherRealmObject(it.city.id, RealmList(*it.list.map { summary ->
                     WeatherSummaryRealmObject(
-                        summary.dt.toLong(),
-                        summary.main.temp.toDouble(),
+                        summary.dt,
+                        summary.main.temp,
                         summary.weather[0].description,
                         summary.weather[0].icon,
-                        summary.wind.speed.toDouble()) }.toTypedArray())) }
+                        summary.wind.speed
+                    ) }.toTypedArray())) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe( {
-                Log.d(TAG, "saving data")
-                try {
-                    saveData(it)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
+                saveData(it)
                 showData(it)
             }, {
                 tryToShowDataFromStorage(city.id)
@@ -92,7 +84,6 @@ class WeatherViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun showData(weather: WeatherRealmObject) {
-        Log.d(TAG, "showing data")
         currentWeather.value = weather.weatherSummaries[0]
         futureWeather.value = weather.weatherSummaries.subList(1, weather.weatherSummaries.size)
         state.value = State.SUCCESSFUL

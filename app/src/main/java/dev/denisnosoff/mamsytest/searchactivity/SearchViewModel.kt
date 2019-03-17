@@ -1,13 +1,11 @@
 package dev.denisnosoff.mamsytest.searchactivity
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import dev.denisnosoff.mamsytest.App
-import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
+import dev.denisnosoff.mamsytest.model.cities.CitiesApiService
 import dev.denisnosoff.mamsytest.model.cities.CityItem
-import dev.denisnosoff.mamsytest.util.CityToCityItem
 import dev.denisnosoff.mamsytest.util.state.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -17,10 +15,8 @@ import javax.inject.Inject
 
 class SearchViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val TAG = "SearchViewModel"
-
     @Inject
-    lateinit var citiesApiService: CitiesApiSevice
+    lateinit var citiesApiService: CitiesApiService
 
     val citiesLiveData = MutableLiveData<List<CityItem>>()
     val stateLiveData = MutableLiveData<State>()

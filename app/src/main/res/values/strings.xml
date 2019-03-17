@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MamsyTest</string>
+    <string name="app_name">Weather</string>
     <string name="hint_search">Search city</string>
     <string name="city_name_country_string">%1$s, %2$s</string>
     <string name="button_delete_text">Delete this city</string>

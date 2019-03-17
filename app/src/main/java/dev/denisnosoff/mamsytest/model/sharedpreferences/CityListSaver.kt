@@ -9,10 +9,6 @@ import javax.inject.Inject
 
 class CityListSaver(appContext: Application) {
 
-    fun clear() {
-        prefs.clear()
-    }
-
     @Inject
     lateinit var converter: CityToCityItem
 
@@ -33,5 +29,4 @@ class CityListSaver(appContext: Application) {
                 converter.convertItemToString(it)
             })
         }
-
 }

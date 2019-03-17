@@ -16,12 +16,11 @@ import dev.denisnosoff.mamsytest.util.show
 import dev.denisnosoff.mamsytest.util.state.Statable
 import dev.denisnosoff.mamsytest.util.state.State
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.fragment_weather.*
 
 class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Statable {
 
     override var state: State = State.LOADING
-        set(_state: State) {
+        set(_state) {
             field = _state
             changeUI(field)
         }
@@ -38,8 +37,6 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Stat
             }
         }
     }
-
-    private val TAG = "SearchActivity"
 
     private lateinit var mViewModel: SearchViewModel
     private lateinit var _adapter: RVAdapter

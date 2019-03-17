@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CitiesApiSevice {
+interface CitiesApiService {
 
     @GET("data/2.5/find?mode=json&type=like")
     fun getCitiesList(@Query("q") cityName: String,

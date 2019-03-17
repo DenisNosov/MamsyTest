@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dev.denisnosoff.mamsytest.R
@@ -16,8 +15,6 @@ import dev.denisnosoff.mamsytest.weatherfragment.WeatherFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private val TAG = "MainActivity"
 
     private var mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
     private lateinit var mViewModel: MainViewModel

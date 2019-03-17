@@ -29,8 +29,4 @@ class SharedPrefs(context: Context) {
             val stringArray = value?.toArray() ?: Array(0) {}
             preferences.edit().putString(CITIES_LIST, TextUtils.join("‗‗‗", stringArray)).apply()
         }
-
-    fun clear() {
-        preferences.edit().clear().apply()
-    }
 }

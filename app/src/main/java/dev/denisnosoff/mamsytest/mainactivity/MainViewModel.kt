@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val TAG = "MainViewModel"
-
     @Inject
     lateinit var cityListSaver: CityListSaver
 
@@ -29,7 +27,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun addCity(city: CityItem) {
-        Log.d(TAG, "adding city $city")
         val newList = citiesListLiveData.value
         newList?.add(city)
         citiesListLiveData.value = newList
@@ -42,7 +39,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun onDestroy() {
-
         repository.close()
     }
 
