@@ -5,48 +5,30 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <!--<ProgressBar-->
-            <!--android:layout_gravity="center"-->
-            <!--android:id="@+id/progressBar"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="200dp" />-->
+    <ProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/pbWeather"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
 
     <TextView
             android:visibility="gone"
-            android:id="@+id/errorTextView"
+            android:id="@+id/tvWeatherError"
             android:textSize="64sp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Button
+            android:id="@+id/btnDeleteFragment"
+            android:text="@string/button_delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"/>
+
+    <include
             android:id="@+id/mainViewGroup"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <TextView
-                android:id="@+id/section_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:layout_constraintTop_creator="1"
-                tools:layout_constraintLeft_creator="1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        <Button
-                android:id="@+id/btnDeleteFragment"
-                android:text="Delete this city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            layout="@layout/layout_weather"/>
 
 </FrameLayout>

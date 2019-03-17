@@ -13,7 +13,8 @@ interface CitiesApiSevice {
     fun getCitiesList(@Query("q") cityName: String,
                       @Query("appId") apiKey: String,
                       @Query("mode") mode: String = "json",
-                      @Query("type") type: String = "like") :
+                      @Query("type") type: String = "like",
+                      @Query("cnt") count: String = "15") :
             Observable<CitiesResult>
 
 }

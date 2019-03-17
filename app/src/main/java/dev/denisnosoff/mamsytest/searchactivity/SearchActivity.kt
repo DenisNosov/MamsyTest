@@ -11,9 +11,33 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.denisnosoff.mamsytest.R
 import dev.denisnosoff.mamsytest.model.cities.CityItem
+import dev.denisnosoff.mamsytest.util.hide
+import dev.denisnosoff.mamsytest.util.show
+import dev.denisnosoff.mamsytest.util.state.Statable
+import dev.denisnosoff.mamsytest.util.state.State
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_weather.*
 
-class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Statable {
+
+    override var state: State = State.LOADING
+        set(_state: State) {
+            field = _state
+            changeUI(field)
+        }
+
+    override fun changeUI(state: State) {
+        when (state) {
+            State.SUCCESSFUL -> {
+                tvSearchError.hide()
+                rvCities.show()
+            }
+            State.ERROR -> {
+                tvSearchError.show()
+                rvCities.hide()
+            }
+        }
+    }
 
     private val TAG = "SearchActivity"
 
@@ -33,14 +57,20 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         mViewModel.citiesLiveData.observe(this, Observer {
             refreshRecyclerView(it)
         })
+        mViewModel.stateLiveData.observe(this, Observer {
+            state = it
+        })
+        mViewModel.errorLiveData.observe(this, Observer {
+            tvSearchError.text = it
+        })
     }
 
     private fun initRecyclerView() {
         _adapter = RVAdapter(ArrayList()) {
             returnItem(it)
         }
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = _adapter
+        rvCities.layoutManager = LinearLayoutManager(this)
+        rvCities.adapter = _adapter
     }
 
     private fun returnItem(newItem: CityItem) {

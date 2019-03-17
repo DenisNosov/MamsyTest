@@ -8,6 +8,7 @@ import io.realm.Realm
 
 class App : Application() {
 
+    private lateinit var realm: Realm
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {

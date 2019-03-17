@@ -8,6 +8,7 @@ import dev.denisnosoff.mamsytest.App
 import dev.denisnosoff.mamsytest.model.cities.CitiesApiSevice
 import dev.denisnosoff.mamsytest.model.cities.CityItem
 import dev.denisnosoff.mamsytest.util.CityToCityItem
+import dev.denisnosoff.mamsytest.util.state.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.toObservable
@@ -21,14 +22,16 @@ class SearchViewModel(app: Application) : AndroidViewModel(app) {
     @Inject
     lateinit var citiesApiService: CitiesApiSevice
 
-    @Inject
-    lateinit var converter: CityToCityItem
+    val citiesLiveData = MutableLiveData<List<CityItem>>()
+    val stateLiveData = MutableLiveData<State>()
+    val errorLiveData = MutableLiveData<String>()
 
-    val citiesLiveData: MutableLiveData<List<CityItem>> = MutableLiveData()
     private var gettingCities: Disposable? = null
 
     init {
         (app as App).appComponent.inject(this)
+        errorLiveData.value = "Unknown error"
+        stateLiveData.value = State.SUCCESSFUL
     }
 
     fun searchCity(cityName: String) {
@@ -40,8 +43,10 @@ class SearchViewModel(app: Application) : AndroidViewModel(app) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                     citiesLiveData.value = it
+                    stateLiveData.value = State.SUCCESSFUL
                 } , {
-                    Log.d(TAG, it.localizedMessage)
+                    errorLiveData.value = "Can't load cities"
+                    stateLiveData.value = State.ERROR
                 }
             )
     }

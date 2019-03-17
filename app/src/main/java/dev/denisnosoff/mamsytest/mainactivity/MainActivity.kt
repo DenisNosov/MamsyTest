@@ -80,6 +80,11 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    override fun onDestroy() {
+        mViewModel.onDestroy()
+        super.onDestroy()
+    }
+
     private fun refreshTabs() {
         for (city in citiesList)
             tabLayout.getTabAt(citiesList.indexOf(city))?.text =

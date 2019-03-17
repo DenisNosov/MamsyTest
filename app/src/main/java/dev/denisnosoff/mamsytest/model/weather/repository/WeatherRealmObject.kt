@@ -5,6 +5,11 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 open class WeatherRealmObject(
-    @PrimaryKey var cityId: Int = 0,
+    @PrimaryKey
+    var cityId: Int = 0,
     var weatherSummaries: RealmList<WeatherSummaryRealmObject> = RealmList()
-) : RealmObject()
+) : RealmObject() {
+    override fun toString(): String {
+        return "WeatherRealmObject(cityId=$cityId, weatherSummaries=$weatherSummaries)"
+    }
+}
